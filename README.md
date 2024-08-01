@@ -1,16 +1,13 @@
 # python-challenge-1
 Module 2 Challenge 1 - Python Challenge-PseudoCode
 
-# Order System
+# Variety Food Truck Order System
 
-def order_system():
-    """
-    Order system for a variety food truck.
+## Overview
 
-    This function sets up a system for taking customer orders, validates inputs,
-    and prints a receipt at the end of the order process.
-
-    Args:
+This project is an order system for a variety food truck. Customers can place orders from a predefined menu, and the system will print an itemized receipt at the end of the transaction. The program uses Python to handle input validation, order processing, and receipt printing.
+'''
+Args:
         None
 
     Returns:
@@ -20,112 +17,102 @@ def order_system():
         None
 
     Examples:
-        The function runs interactively, so no examples are provided.
+      <div style="text-align: center;">  
+        Welcome to the variety food truck.
+From which menu would you like to order?
+1: Drinks
+2: Snacks
+Type menu number: 1
+You selected Drinks
+Item # | Item name                | Price
+-------|--------------------------|-------
+1      | Coffee                   | $1.50
+2      | Tea                      | $1.20
+Type item number: 1
+You selected Coffee for $1.5
+How many Coffee would you like to order? 2
+Would you like to order anything else? (Y/N): n
+Thank you for your order.
+This is what we are preparing for you.
+
+Item name                 | Price  | Quantity
+--------------------------|--------|----------
+Coffee                    | $1.5   | 2
+Total price: $3.0.
+
 
     Note:
         Ensure to run this function in an environment where input() is supported.
     """
 
-    # Step 1: Initialize an empty order list.
-    order = []
 
-    # Step 2: Greet the customer.
-    print("Welcome to the variety food truck.")
+## Features
 
-    # Step 3: Start the order loop.
-    place_order = True
-    while place_order:
-        # Step 4: Display menu categories and get customer selection.
-        print("From which menu would you like to order?")
-        i = 1
-        menu_items = {}
-        for category in menu.keys():
-            print(f"{i}: {category}")
-            menu_items[i] = category
-            i += 1
+- User-friendly menu selection
+- Input validation for menu and quantity selection
+- Continuous ordering until the customer decides to stop
+- Itemized receipt printing with total cost calculation
 
-        # Step 5: Get customer's menu category selection.
-        menu_category = input("Type menu number: ")
+## Requirements
 
-        # Step 6: Validate menu category input.
-        if menu_category.isdigit():
-            menu_category = int(menu_category)
-            if menu_category in menu_items.keys():
-                menu_category_name = menu_items[menu_category]
-                print(f"You selected {menu_category_name}")
+- Python 3.6 or later
 
-                # Step 7: Display items in the selected menu category.
-                i = 1
-                menu_items = {}
-                print("Item # | Item name                | Price")
-                print("-------|--------------------------|-------")
-                for item, value in menu[menu_category_name].items():
-                    if isinstance(value, dict):
-                        for sub_item, price in value.items():
-                            print(f"{i}      | {item} - {sub_item}{' ' * (24 - len(item + sub_item) - 3)}| ${price}")
-                            menu_items[i] = {"Item name": f"{item} - {sub_item}", "Price": price}
-                            i += 1
-                    else:
-                        print(f"{i}      | {item}{' ' * (24 - len(item))} | ${value}")
-                        menu_items[i] = {"Item name": item, "Price": value}
-                        i += 1
+## Setup
 
-                # Step 8: Get customer's item selection.
-                menu_selection = input("Type item number: ")
+1. Clone this repository to your local machine:
+    ```sh
+    git clone https://github.com/sack2116/python-challenge-1.git
+    ```
+2. Navigate to the project directory:
+    ```sh python-challenge-1
+    cd python-challenge-1
+    ```
 
-                # Step 9: Validate item selection input.
-                if menu_selection.isdigit():
-                    menu_selection = int(menu_selection)
-                    if menu_selection in menu_items.keys():
-                        item_name = menu_items[menu_selection]["Item name"]
-                        price = menu_items[menu_selection]["Price"]
-                        print(f"You selected {item_name} for ${price}")
+## Usage
 
-                        # Step 10: Ask for quantity.
-                        quantity = input(f"How many {item_name} would you like to order? ")
-                        if not quantity.isdigit():
-                            quantity = 1
-                        else:
-                            quantity = int(quantity)
+To run the order system, execute the following command in your terminal:
+```sh
+python menu.py
+```
 
-                        # Step 11: Add item to the order list.
-                        order.append({"Item name": item_name, "Price": price, "Quantity": quantity})
-                    else:
-                        print("Invalid item selection.")
-                else:
-                    print("You didn't select a valid item number.")
-            else:
-                print("You didn't select a valid menu option.")
-        else:
-            print("You didn't select a valid menu number.")
+## Example
+Welcome to the variety food truck.
+From which menu would you like to order?
+1: Drinks
+2: Snacks
+Type menu number: 1
+You selected Drinks
+Item # | Item name                | Price
+-------|--------------------------|-------
+1      | Coffee                   | $1.50
+2      | Tea                      | $1.20
+Type item number: 1
+You selected Coffee for $1.5
+How many Coffee would you like to order? 2
+Would you like to order anything else? (Y/N): n
+Thank you for your order.
+This is what we are preparing for you.
 
-        # Step 12: Ask if the customer wants to continue ordering.
-        while True:
-            keep_ordering = input("Would you like to order anything else? (Y/N): ").lower()
-            match keep_ordering:
-                case 'y':
-                    place_order = True
-                    break
-                case 'n':
-                    place_order = False
-                    print("Thank you for your order.")
-                    break
-                case _:
-                    print("Invalid input. Please type (Y)es or (N)o.")
+Item name                 | Price  | Quantity
+--------------------------|--------|----------
+Coffee                    | $1.5   | 2
+Total price: $3.0
 
-    # Step 13: Print the order receipt.
-    print("This is what we are preparing for you.\n")
-    print("Item name                 | Price  | Quantity")
-    print("--------------------------|--------|----------")
-    for item in order:
-        item_name = item["Item name"]
-        price = item["Price"]
-        quantity = item["Quantity"]
-        print(f"{item_name}{' ' * (26 - len(item_name))} | ${price}{' ' * (6 - len(str(price)))} | {quantity}")
+## PseudoCode
 
-    # Step 14: Calculate and print the total price.
-    total_price = sum(item["Price"] * item["Quantity"] for item in order)
-    print(f"Total price: ${total_price}")
+1. Initialize an empty list to store orders.
+2. Display menu categories and prompt user to select a category.
+3. Display items in the selected category and prompt user to select an item.
+4. Ask user for quantity and validate the input.
+5. Add the selected item, price, and quantity to the order list.
+6. Continue ordering until user decides to stop.
+7. Print itemized receipt with total cost.
 
-if __name__ == "__main__":
-    order_system()
+## How it Works
+
+1. Initialization: The program initializes an empty order list.
+2. Menu Display: The program displays menu categories and items.
+3. Order Processing: The user selects an item and quantity, which is validated and added to the order list.
+4. Receipt Printing: After finalizing the order, the program prints an itemized receipt with the total cost.
+
+
